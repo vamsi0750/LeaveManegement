@@ -1,7 +1,7 @@
 ﻿using LeaveManegementApi.Models;
 using LeaveManegementApi.Repository;
 using Microsoft.AspNetCore.Mvc;
-
+using System.ComponentModel.DataAnnotations;
 
 namespace LeaveManegementApi.Controllers
 {
@@ -40,6 +40,58 @@ namespace LeaveManegementApi.Controllers
             if (result.Contains("Exist"))
             {
                 return Conflict(result);
+            }
+            return Ok(result);
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] UserLogin userLogin)
+        {
+            var result = await _account.Login(userLogin);
+            if (result.Contains("Found"))
+            {
+                return NotFound(result);
+            }
+            else if(result.Contains("Password"))
+            {
+                return BadRequest(result);
+            }
+            else if (result.Contains("Verified"))
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+        [HttpGet("verify")]
+        public async Task<IActionResult> verify([FromQuery] string token)
+        {
+            var result = await _account.Verify(token);
+            if (result.Contains("InValid"))
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+        [HttpGet("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromQuery][EmailAddress] string email)
+        {
+            var result = await _account.ForgotPassword(email);
+            if (result.Contains("Found"))
+            {
+                return NotFound(result);
+            }
+            return Ok(result);
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPassword resetPassword)
+        {
+            var result = await _account.ResetPassword(resetPassword);
+            if (result.Contains("InValid"))
+            {
+                return BadRequest(result);
             }
             return Ok(result);
         }
