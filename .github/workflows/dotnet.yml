@@ -42,6 +42,13 @@ jobs:
             path: TestResults-${{ matrix.dotnet-version }}
           # Use always() to always run this step to publish test results when there are test failures
           if: ${{ always() }}
+        - name: Publish
+          run: dotnet publish -c Release   
+        - name: Upload dotnet Publish results
+          uses: actions/upload-artifact@v3
+          with:
+            name: dotnet-results
+            path: /home/runner/work/LeaveManegement/LeaveManegement/LeaveManegementApi/bin/Release/net6.0/LeaveManegementApi.dll
 
 
     
