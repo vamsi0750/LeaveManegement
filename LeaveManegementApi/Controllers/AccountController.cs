@@ -42,15 +42,15 @@ namespace LeaveManegementApi.Controllers
         public async Task<IActionResult> Login([FromBody] UserLogin userLogin)
         {
             var result = await _account.Login(userLogin);
-            if (result.Contains("Found"))
+            if (result.ResponceMessage.Contains("Found"))
             {
                 return NotFound(result);
             }
-            else if(result.Contains("Password"))
+            else if(result.ResponceMessage.Contains("Password"))
             {
                 return BadRequest(result);
             }
-            else if (result.Contains("Verified"))
+            else if (result.ResponceMessage.Contains("Verified"))
             {
                 return BadRequest(result);
             }

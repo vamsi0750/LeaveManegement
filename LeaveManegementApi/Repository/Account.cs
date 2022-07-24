@@ -1,7 +1,12 @@
 ﻿using LeaveManegementApi.Data;
+using LeaveManegementApi.Dto;
 using LeaveManegementApi.Helper;
 using LeaveManegementApi.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace LeaveManegementApi.Repository
 {
@@ -9,11 +14,13 @@ namespace LeaveManegementApi.Repository
     {
         private readonly LeaveManagementDBContext _leaveManagementDBContext;
         private readonly IEmail _email;
+        private readonly IConfiguration _configuration;
 
-        public Account(LeaveManagementDBContext leaveManagementDBContext,IEmail email)
+        public Account(LeaveManagementDBContext leaveManagementDBContext,IEmail email, IConfiguration configuration)
         {
             _leaveManagementDBContext = leaveManagementDBContext;
             _email = email;
+            _configuration = configuration;
         }
 
         public async Task<string> ForgotPassword(string email)
@@ -36,22 +43,30 @@ namespace LeaveManegementApi.Repository
             return await _leaveManagementDBContext.Users.ToListAsync();
         }
 
-        public async Task<string> Login(UserLogin userLogin)
+        public async Task<ResponceModel> Login(UserLogin userLogin)
         {
             var user = await _leaveManagementDBContext.Users.FirstOrDefaultAsync(x => x.Email == userLogin.Email);
             if (user == null)
             {
-                return "User Not Found";
+                return new ResponceModel( false,"User Not Found",null);
             }
             if (!CreateHash.VerifyPassworHash(userLogin.Password, user.PasswordHash, user.PasswordSalt))
             {
-                return "Password In Coreect";
+                return new ResponceModel(false, "Password In Coreect", null);
             }
             if (user.VerifiedAt == null)
             {
-                return "User Not Verified";
+                return new ResponceModel(false, "User Not Verified", null);
             }
-            return "Loged In Succesfully";
+            var token = CreateJwtToken(user);
+            var vamsiDto = new LoginDto()
+            {
+                Name = user.Name,
+                Email = user.Email,
+                Token = token
+            };
+            var ss = new ResponceModel(true, "Login Success", vamsiDto);
+            return new ResponceModel(true,"Login Success", vamsiDto);
         }
 
         public async Task<string> ResetPassword(ResetPassword resetPassword)
@@ -98,6 +113,25 @@ namespace LeaveManegementApi.Repository
             user.VerifiedAt = DateTime.Now;
             await _leaveManagementDBContext.SaveChangesAsync();
             return "User Verifed";
+        }
+        public  string CreateJwtToken(User user)
+        {
+            var jwtTokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_configuration.GetSection("JWTConfig:Key").Value);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new System.Security.Claims.ClaimsIdentity(new[]
+                {
+                    new System.Security.Claims.Claim(ClaimTypes.Name, user.Name),
+                    new System.Security.Claims.Claim(ClaimTypes.Email, user.Email),
+                }),
+                Expires = DateTime.UtcNow.AddHours(12),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                Audience = _configuration.GetSection("JWTConfig:AudiEnce").Value,
+                Issuer = _configuration.GetSection("JWTConfig:Issuer").Value
+            };
+            var token = jwtTokenHandler.CreateToken(tokenDescriptor);
+            return jwtTokenHandler.WriteToken(token);
         }
     }
 }
