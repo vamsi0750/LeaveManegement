@@ -12,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAccount, Account>();
+builder.Services.AddScoped<IEmail, Email>();
 
 var app = builder.Build();
 

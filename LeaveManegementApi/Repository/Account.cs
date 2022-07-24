@@ -8,9 +8,12 @@ namespace LeaveManegementApi.Repository
     public class Account : IAccount
     {
         private readonly LeaveManagementDBContext _leaveManagementDBContext;
-        public Account(LeaveManagementDBContext leaveManagementDBContext)
+        private readonly IEmail _email;
+
+        public Account(LeaveManagementDBContext leaveManagementDBContext,IEmail email)
         {
             _leaveManagementDBContext = leaveManagementDBContext;
+            _email = email;
         }
 
         public async Task<string> ForgotPassword(string email)
@@ -20,6 +23,11 @@ namespace LeaveManegementApi.Repository
             user.PasswordResetToken = CreateHash.CreateRandomToken();
             user.ResetTokenExpiriesAt = DateTime.Now.AddDays(1);
             await _leaveManagementDBContext.SaveChangesAsync();
+            var isEmailSent = await _email.ForgotPasswordEmail(user);
+            if (!isEmailSent)
+            {
+                return "Something went wrong , please try after some time";
+            }
             return "Please Check Your Email to Reset Password";
         }
 
@@ -76,7 +84,8 @@ namespace LeaveManegementApi.Repository
             };
             var result = await _leaveManagementDBContext.Users.AddAsync(user);
             await _leaveManagementDBContext.SaveChangesAsync();
-            return "User Created Succesfully";
+            var s = await _email.RegistartionEmail(user);
+            return "User Created Succesfully, please verify email address";
         }
 
         public async Task<string> Verify(string token)

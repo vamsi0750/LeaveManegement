@@ -27,12 +27,6 @@ namespace LeaveManegementApi.Controllers
             return Ok(await _account.GetAllUsers());
         }
 
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         [HttpPost("user-registration")]
         public async Task<IActionResult> CreateUser([FromBody] UserRegistration userRegistration)
         {
@@ -81,6 +75,9 @@ namespace LeaveManegementApi.Controllers
             if (result.Contains("Found"))
             {
                 return NotFound(result);
+            }else if(result.Contains("Something"))
+            {
+                return BadRequest(result);
             }
             return Ok(result);
         }
@@ -94,16 +91,6 @@ namespace LeaveManegementApi.Controllers
                 return BadRequest(result);
             }
             return Ok(result);
-        }
-
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
