@@ -1,10 +1,11 @@
-﻿using LeaveManegementApi.Models;
+﻿using LeaveManegementApi.Dto;
+using LeaveManegementApi.Models;
 
 namespace LeaveManegementApi.Repository
 {
     public interface IAccount
     {
-        Task<List<User>> GetAllUsers();
+        Task<List<LoginDto>> GetAllUsers();
         Task<string> UserRegistration(UserRegistration userRegistration);
         Task<ResponceModel> Login(UserLogin userLogin);
         Task<string> Verify(string token);

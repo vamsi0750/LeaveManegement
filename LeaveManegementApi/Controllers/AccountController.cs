@@ -1,5 +1,6 @@
 ﻿using LeaveManegementApi.Models;
 using LeaveManegementApi.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
@@ -16,6 +17,7 @@ namespace LeaveManegementApi.Controllers
             _account = account;
         }
 
+        [Authorize(Roles = "1")]
         [HttpGet("all-users")]
         public async Task<IActionResult> GetAllUsers()
         {

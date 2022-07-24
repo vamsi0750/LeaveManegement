@@ -11,5 +11,6 @@
         public DateTime? VerifiedAt { get; set; }
         public string? PasswordResetToken { get; set; }
         public DateTime? ResetTokenExpiriesAt { get; set; }
+        public byte Role { get; set; } = 1;
     }
 }

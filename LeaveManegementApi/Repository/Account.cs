@@ -38,9 +38,14 @@ namespace LeaveManegementApi.Repository
             return "Please Check Your Email to Reset Password";
         }
 
-        public async Task<List<User>> GetAllUsers()
+        public async Task<List<LoginDto>> GetAllUsers()
         {
-            return await _leaveManagementDBContext.Users.ToListAsync();
+            return await _leaveManagementDBContext.Users.Select(x => new LoginDto()
+            {
+                Name = x.Name,
+                Role = x.Role,
+                Email = x.Email
+            }).ToListAsync();
         }
 
         public async Task<ResponceModel> Login(UserLogin userLogin)
@@ -63,7 +68,8 @@ namespace LeaveManegementApi.Repository
             {
                 Name = user.Name,
                 Email = user.Email,
-                Token = token
+                Token = token,
+                Role = user.Role
             };
             var ss = new ResponceModel(true, "Login Success", vamsiDto);
             return new ResponceModel(true,"Login Success", vamsiDto);
@@ -95,7 +101,8 @@ namespace LeaveManegementApi.Repository
                 Email = userRegistration.Email,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
-                VerificationToken = CreateHash.CreateRandomToken()
+                VerificationToken = CreateHash.CreateRandomToken(),
+                Role = 1
             };
             var result = await _leaveManagementDBContext.Users.AddAsync(user);
             await _leaveManagementDBContext.SaveChangesAsync();
@@ -124,6 +131,7 @@ namespace LeaveManegementApi.Repository
                 {
                     new System.Security.Claims.Claim(ClaimTypes.Name, user.Name),
                     new System.Security.Claims.Claim(ClaimTypes.Email, user.Email),
+                    new System.Security.Claims.Claim(ClaimTypes.Role, user.Role.ToString()),
                 }),
                 Expires = DateTime.UtcNow.AddHours(12),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
