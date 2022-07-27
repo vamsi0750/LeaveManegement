@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { FullComponent } from './layouts/full/full.component';
+import { LoginComponent } from './shared/components/login/login.component';
 
 export const AppRoutes: Routes = [
   {
@@ -15,7 +16,8 @@ export const AppRoutes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
-      }
+      },
     ]
-  }
+  },
+  {path:'login',component:LoginComponent}
 ];

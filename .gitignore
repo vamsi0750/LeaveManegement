@@ -454,3 +454,4 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 /LeaveManegementApi/Migrations
 LeaveManegementWeb/.angular/
+LeaveManegementApi/appsettings.Development.json
