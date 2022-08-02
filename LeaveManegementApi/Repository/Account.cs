@@ -119,6 +119,10 @@ namespace LeaveManegementApi.Repository
                 return "InValid Token";
             }
             user.VerifiedAt = DateTime.Now;
+            if (!string.IsNullOrEmpty(user.VerifiedAt.ToString()))
+            {
+                return "User Already Verifed";
+            }
             await _leaveManagementDBContext.SaveChangesAsync();
             return "User Verifed";
         }
