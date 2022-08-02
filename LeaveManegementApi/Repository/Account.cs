@@ -72,7 +72,7 @@ namespace LeaveManegementApi.Repository
                 Role = user.Role
             };
             var ss = new ResponceModel(true, "Login Success", vamsiDto);
-            return new ResponceModel(true,"Login Success", vamsiDto);
+            return new ResponceModel(true,"Login Success", new { token= token});
         }
 
         public async Task<string> ResetPassword(ResetPassword resetPassword)
@@ -107,7 +107,7 @@ namespace LeaveManegementApi.Repository
             var result = await _leaveManagementDBContext.Users.AddAsync(user);
             await _leaveManagementDBContext.SaveChangesAsync();
             var s = await _email.RegistartionEmail(user);
-            return new ResponceModel(true, "User Created Succesfully, please verify email address", user);
+            return new ResponceModel(true, "User Created Succesfully, please verify email address", null);
 
         }
 

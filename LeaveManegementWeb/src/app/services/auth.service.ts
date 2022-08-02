@@ -14,4 +14,19 @@ export class AuthService {
   register(data:object){
     return this.http.post(this.baseUrl + '/api/Account/user-registration',data)
   }
+
+  login(data:object){
+    return this.http.post(this.baseUrl + '/api/Account/login',data)
+  }
+
+  isLoggedIn():boolean{
+    let token = localStorage.getItem('token');
+    if(token == null){
+      return false
+    }
+    return true;
+  }
+  logout(){
+    localStorage.removeItem('token')
+  }
 }

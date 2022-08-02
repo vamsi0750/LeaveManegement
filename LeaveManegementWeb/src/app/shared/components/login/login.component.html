@@ -1,23 +1,20 @@
 <div class="login">
-  <form>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
     <h1>Welcome Back</h1>
     <p>Enter your credentials to continue.</p>
     
     <div class="input-wrapper">
-      <input type="text" placeholder="Enter your username" />
+      <input type="text" placeholder="Enter your username" formControlName="email" autocomplete="email" />
       <i class="bx bxs-user-circle"></i>
     </div>
   
     <div class="input-wrapper">
-      <input type="password" placeholder="Enter your password" />
+      <input type="password" placeholder="Enter your password" formControlName="password" autocomplete="current-password" />
       <i class="bx bx-key"></i>
     </div>
     
     <div>
-      <button type="submit">
-        Sign In
-        <i class='bx bx-right-arrow-alt'></i>
-      </button>
+      <button type="submit" mat-raised-button color="accent" class="bx bx-right-arrow-alt">Login</button>
     </div>
   </form>
 </div>
