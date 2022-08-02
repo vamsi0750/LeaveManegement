@@ -8,25 +8,37 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
   baseUrl = environment.apiEndPoint;
 
-  register(data:object){
-    return this.http.post(this.baseUrl + '/api/Account/user-registration',data)
+  register(data: object) {
+    return this.http.post(this.baseUrl + '/api/Account/user-registration', data)
   }
 
-  login(data:object){
-    return this.http.post(this.baseUrl + '/api/Account/login',data)
+  login(data: object) {
+    return this.http.post(this.baseUrl + '/api/Account/login', data)
   }
 
-  isLoggedIn():boolean{
-    let token = localStorage.getItem('token');
-    if(token == null){
+  isLoggedIn(): boolean {
+    if (this.getToken() == null) {
       return false
     }
     return true;
   }
-  logout(){
+
+  logout() {
     localStorage.removeItem('token')
+  }
+
+  getToken() {
+    return localStorage.getItem('token');
+  }
+
+  getUserinfo() : object{
+    let token = localStorage.getItem('token');
+    if (token != null) {
+      return JSON.parse(atob(token.split('.')[1]))
+    }
+    return {}
   }
 }

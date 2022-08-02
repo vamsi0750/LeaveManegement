@@ -9,31 +9,31 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  
-  loginForm:FormGroup;
+
+  loginForm: FormGroup;
 
   constructor(
-    private auth:AuthService,
-    private fb:FormBuilder,
-    private router:Router
-    ) { }
+    private auth: AuthService,
+    private fb: FormBuilder,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    if(this.auth.isLoggedIn()){
+    if (this.auth.isLoggedIn()) {
       this.router.navigateByUrl('/')
     }
     this.loginForm = this.fb.group({
-      email:["",Validators.required],
-      password:["",Validators.required],
+      email: ["", Validators.required],
+      password: ["", Validators.required],
     })
   }
 
-  login(){
-    this.auth.login(this.loginForm.value).subscribe((res:any)=>{
+  login() {
+    this.auth.login(this.loginForm.value).subscribe((res: any) => {
       console.log(res);
-      localStorage.setItem("token",res.data.token)
+      localStorage.setItem("token", res.data.token)
       this.router.navigateByUrl('/')
-    });    
+    });
   }
 
 
