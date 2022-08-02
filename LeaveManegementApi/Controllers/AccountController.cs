@@ -33,7 +33,7 @@ namespace LeaveManegementApi.Controllers
         public async Task<IActionResult> CreateUser([FromBody] UserRegistration userRegistration)
         {
             var result = await _account.UserRegistration(userRegistration);
-            if (result.Contains("Exist"))
+            if (result.ResponceMessage.Contains("Exist"))
             {
                 return Conflict(result);
             }

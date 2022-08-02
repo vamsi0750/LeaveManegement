@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 import { FullComponent } from './layouts/full/full.component';
 import { LoginComponent } from './shared/components/login/login.component';
+import { RegisterComponent } from './shared/components/register/register.component';
 
 export const AppRoutes: Routes = [
   {
@@ -19,5 +20,8 @@ export const AppRoutes: Routes = [
       },
     ]
   },
-  {path:'login',component:LoginComponent}
+  {path:'login',component:LoginComponent},
+  {path:'sign-up',component:RegisterComponent},
+
+  
 ];

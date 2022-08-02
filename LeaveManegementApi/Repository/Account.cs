@@ -88,11 +88,11 @@ namespace LeaveManegementApi.Repository
             return "Password Successfully Reseted";
         }
 
-        public async Task<string> UserRegistration(UserRegistration userRegistration)
+        public async Task<ResponceModel> UserRegistration(UserRegistration userRegistration)
         {
             if(_leaveManagementDBContext.Users.Any(u=>u.Email == userRegistration.Email))
             {
-                return "User Already Exist";
+                return new ResponceModel(true, "User Already Exist", null);
             }
             CreateHash.CreatePassworHash(userRegistration.Password, out byte[] passwordHash, out byte[] passwordSalt);
             var user = new User()
@@ -107,7 +107,8 @@ namespace LeaveManegementApi.Repository
             var result = await _leaveManagementDBContext.Users.AddAsync(user);
             await _leaveManagementDBContext.SaveChangesAsync();
             var s = await _email.RegistartionEmail(user);
-            return "User Created Succesfully, please verify email address";
+            return new ResponceModel(true, "User Created Succesfully, please verify email address", user);
+
         }
 
         public async Task<string> Verify(string token)

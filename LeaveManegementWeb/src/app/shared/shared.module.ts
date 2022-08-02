@@ -5,11 +5,16 @@ import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } 
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { MatButtonModule } from '@angular/material/button';
+import {ReactiveFormsModule,FormsModule} from '@angular/forms'
+import {HttpClientModule} from '@angular/common/http'
 
 
 @NgModule({
   imports:[
-    MatButtonModule
+    MatButtonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule
   ],
   declarations: [
     AccordionAnchorDirective,

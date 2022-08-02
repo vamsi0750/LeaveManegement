@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import {ReactiveFormsModule} from '@angular/forms'
 import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
 
@@ -34,7 +35,8 @@ import { SpinnerComponent } from './shared/spinner.component';
     FlexLayoutModule,
     HttpClientModule,
     SharedModule,
-    RouterModule.forRoot(AppRoutes)
+    RouterModule.forRoot(AppRoutes),
+    ReactiveFormsModule
   ],
   providers: [
     {
