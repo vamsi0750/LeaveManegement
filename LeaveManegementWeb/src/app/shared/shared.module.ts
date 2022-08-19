@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule  } from '@angular/core';
 
 import { MenuItems } from './menu-items/menu-items';
 import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } from './accordion';
@@ -7,6 +7,9 @@ import { RegisterComponent } from './components/register/register.component';
 import { MatButtonModule } from '@angular/material/button';
 import {ReactiveFormsModule,FormsModule} from '@angular/forms'
 import {HttpClientModule} from '@angular/common/http'
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
+
 
 
 @NgModule({
@@ -14,7 +17,8 @@ import {HttpClientModule} from '@angular/common/http'
     MatButtonModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSnackBarModule,CommonModule
   ],
   declarations: [
     AccordionAnchorDirective,

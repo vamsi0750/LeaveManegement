@@ -19,25 +19,10 @@
    padding: 20px 35px 35px 35px;
    text-align: center;
    width: 500px;
-   
-   i {
-     color: #fff;
-     font-size: 30px;
-     transition: color 250ms ease-in;
-   }
- 
+    
    .input-wrapper {
      margin-bottom: 30px;
      position: relative;
-     
-     i {
-       color: #a4a9b6;
-       position: absolute;
-       opacity: 0.85;
-       right: 13px;
-       top: 50%;
-       transform: translateY(-50%);
-     }
    }
    
    h1 {
@@ -46,7 +31,7 @@
      margin: 25px 0 0 0;
    }
    
-   p {
+   .subheading {
      color: #a4a9b6;
      font-size: 18px;
      margin: 2px 0 44px 0;
@@ -59,30 +44,31 @@
      padding: 13px 9px 13px 9px;
      transition: border-color 250ms ease-in; 
      
-     &:focus {
-       border-color: #4c70ff;
-       outline: none;
-     }
+    //  &:focus {
+    //    border-color: #4c70ff;
+    //    outline: none;
+    //  }
      
-     &:focus + i {
-       color: #4c70ff;
-     }
+    //  &:focus + i {
+    //    color: #4c70ff;
+    //  }
    }
    
    input {
      width: 100%
    }
    
-   ::placeholder {
-     color: #a4a9b6;
-     font-size: 15px;
-     opacity: 1;
-   }
    
    button[type=submit] {
      font-size: 16px;
      padding: 8px 10px;
      width: 100%;
    }
+ }
+ .errorMessage{
+  color: red;
+  margin-top: -17px;
+  font-size: 13px;
+  display: flex;
  }
  
