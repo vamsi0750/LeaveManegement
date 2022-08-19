@@ -7,24 +7,40 @@
         <input type="text" placeholder="Enter your name" formControlName="name" />
         <i class="bx bxs-user-circle"></i>
       </div>
+      <div>
+        <p  *ngIf="helper.validate(signupForm,'name')?.required" class="errorMessage">{{helper.requiresMessage}} </p>
+      </div>
 
       <div class="input-wrapper">
         <input type="text" placeholder="Enter your Email" formControlName="email" autocomplete="username" />
         <i class="bx bxs-user-circle"></i>
+      </div>
+      <div>
+        <p  *ngIf="helper.validate(signupForm,'email')?.required" class="errorMessage">{{helper.requiresMessage}} </p>
+        <p  *ngIf="helper.validate(signupForm,'email')?.email" class="errorMessage">{{helper.emailMessage}} </p>
       </div>
     
       <div class="input-wrapper">
         <input type="password" placeholder="Enter your password" formControlName="password" autocomplete="new-password" />
         <i class="bx bx-key"></i>
       </div>
+      <div>
+        <p *ngIf="helper.validate(signupForm,'password')?.required"  class="errorMessage">{{helper.requiresMessage}} </p>
+        <p *ngIf="helper.validate(signupForm,'password')?.minlength"  class="errorMessage">{{helper.passwordMessage}} </p>
+      </div>
 
       <div class="input-wrapper">
-        <input type="password" placeholder="Please Re-Enter password" formControlName="confirmPassword" autocomplete="new-password" />
+        <input type="password" placeholder="Please Re-Enter password"  formControlName="confirmPassword" autocomplete="new-password" />
         <i class="bx bx-key"></i>
+      </div>
+      <div>
+        <p *ngIf="helper.validate(signupForm,'confirmPassword')?.required "  class="errorMessage">{{helper.requiresMessage}} </p>
+        <p *ngIf="helper.validate(signupForm,'confirmPassword')?.minlength"  class="errorMessage">{{helper.passwordMessage}} </p>
+        <p *ngIf="confirmPasswordMessage && !helper.validate(signupForm,'confirmPassword')?.required && !helper.validate(signupForm,'confirmPassword')?.minlength " class="errorMessage">password and confrim password should be same</p>
       </div>
       
       <div>
-        <button type="submit" mat-raised-button color="accent" class="bx bx-right-arrow-alt">Register</button>
+        <button  type="submit" [disabled]="signupForm.invalid"  class="btn btn-primary">Sign Up</button>
       </div>
 
     </form>

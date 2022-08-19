@@ -17,11 +17,9 @@
     <div >
       <p *ngIf="helper.validate(loginForm,'password')?.required"  class="errorMessage">{{helper.requiresMessage}} </p>
       <p *ngIf="helper.validate(loginForm,'password')?.minlength"  class="errorMessage">{{helper.passwordMessage}} </p>
-
     </div>
     <div>
-      <!-- <button  type="submit" mat-raised-button color="accent" >Login</button> -->
-      <button  type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">vamsi</button>
+      <button  type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">Login</button>
     </div>
   </form>
 </div>
