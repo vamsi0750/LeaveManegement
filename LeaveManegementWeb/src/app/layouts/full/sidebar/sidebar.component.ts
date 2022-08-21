@@ -23,7 +23,7 @@ export class AppSidebarComponent implements OnDestroy,OnInit {
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
   ngOnInit(): void {
-   this.userInfo =  this.auth.getUserinfo();
+   this.userInfo =  this.auth?.getUserinfo();
   }
 
   ngOnDestroy(): void {

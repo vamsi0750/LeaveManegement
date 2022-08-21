@@ -4,21 +4,22 @@ import { MenuItems } from './menu-items/menu-items';
 import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } from './accordion';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { MatButtonModule } from '@angular/material/button';
 import {ReactiveFormsModule,FormsModule} from '@angular/forms'
 import {HttpClientModule} from '@angular/common/http'
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
+import {ButtonModule} from 'primeng/button';
 
 
 
 @NgModule({
   imports:[
-    MatButtonModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    MatSnackBarModule,CommonModule
+    MatSnackBarModule,
+    CommonModule,
+    ButtonModule
   ],
   declarations: [
     AccordionAnchorDirective,
