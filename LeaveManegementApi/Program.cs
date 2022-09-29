@@ -1,5 +1,6 @@
 using LeaveManegementApi.Data;
 using LeaveManegementApi.Repository;
+using LeaveManegementApi.Repository.Movie;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -66,6 +67,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAccount, Account>();
 builder.Services.AddScoped<IEmail, Email>();
+builder.Services.AddScoped<IMovie, Movie>();
+builder.Services.AddScoped<IProducer, Producer>();
+builder.Services.AddScoped<IActor, Actor>();
+
+
+
 
 var app = builder.Build();
 
