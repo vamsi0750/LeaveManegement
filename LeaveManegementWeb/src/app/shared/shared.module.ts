@@ -11,7 +11,9 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
-
+import { UpdatePasswordComponent } from './components/update-password/update-password.component';
+import {CheckboxModule} from 'primeng/checkbox'
+ 
 
 
 
@@ -24,14 +26,16 @@ import { InputTextModule } from 'primeng/inputtext';
     CommonModule,
     ButtonModule,
     DialogModule,
-    InputTextModule
+    InputTextModule,
+    CheckboxModule
   ],
   declarations: [
     AccordionAnchorDirective,
     AccordionLinkDirective,
     AccordionDirective,
     LoginComponent,
-    RegisterComponent],
+    RegisterComponent,
+    UpdatePasswordComponent],
   exports: [
     AccordionAnchorDirective,
     AccordionLinkDirective,

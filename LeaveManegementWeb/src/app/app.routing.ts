@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { FullComponent } from './layouts/full/full.component';
 import { LoginComponent } from './shared/components/login/login.component';
 import { RegisterComponent } from './shared/components/register/register.component';
+import { UpdatePasswordComponent } from './shared/components/update-password/update-password.component';
 
 export const AppRoutes: Routes = [
   {
@@ -21,4 +22,6 @@ export const AppRoutes: Routes = [
     ]
   },
   { path: 'login', component: LoginComponent },
-  { path: 'sign-up', component: RegisterComponent }];
+  { path: 'sign-up', component: RegisterComponent },
+  { path: 'update-password', component: UpdatePasswordComponent },
+];

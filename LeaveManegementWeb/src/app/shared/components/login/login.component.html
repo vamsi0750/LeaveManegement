@@ -1,5 +1,8 @@
 <div class="login">
   <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <div class="text-center mb-5">
+      <img src="https://i.ibb.co/2P7DsHK/logo-removebg-preview.png" alt="Image" height="150" class="mb-3">
+    </div>
     <h1>Welcome Back</h1>
     <p class="subheading capitalize">Enter your credentials to continue.</p>
     <div class="input-wrapper">
@@ -19,12 +22,19 @@
       <p *ngIf="helper.validate(loginForm,'password')?.required" class="errorMessage">{{helper.requiresMessage}} </p>
       <p *ngIf="helper.validate(loginForm,'password')?.minlength" class="errorMessage">{{helper.passwordMessage}} </p>
     </div>
-    <div>
-      <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">Login</button>
+
+
+    <div class="flex align-items-center justify-content-between mb-6">
+      <div class="flex align-items-center">
+        <p-checkbox id="rememberme1" [binary]="true" styleClass="mr-2"></p-checkbox>
+        <label for="rememberme1" class="text-900">Remember me</label>
+      </div>
+      <a (click)="showDialog()" class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Forgot
+        password?</a>
     </div>
-    <div class="mt-2">
-      <button type="button" (click)="showDialog()" class="btn btn-primary">Forgot Password</button>
-    </div>
+
+    <button pButton pRipple label="Sign In" type="submit" [disabled]="loginForm.invalid" icon="pi pi-user"
+      class="w-full"></button>
   </form>
 </div>
 <p-dialog header="Forgot Password" position="top" [(visible)]="display"
