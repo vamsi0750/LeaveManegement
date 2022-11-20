@@ -20,8 +20,5 @@ export const AppRoutes: Routes = [
       },
     ]
   },
-  {path:'login',component:LoginComponent},
-  {path:'sign-up',component:RegisterComponent},
-
-  
-];
+  { path: 'login', component: LoginComponent },
+  { path: 'sign-up', component: RegisterComponent }];

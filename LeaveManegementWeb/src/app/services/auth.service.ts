@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ResponceData } from '../models/responce';
+
 
 @Injectable({
   providedIn: 'root'
@@ -41,4 +43,9 @@ export class AuthService {
     }
     return {}
   }
+
+  forgotPassword(email:string): Observable<ResponceData>{
+    return this.http.get<ResponceData>(this.baseUrl + `/api/Account/forgot-password?email=${email}`)
+  }
+
 }

@@ -23,19 +23,19 @@ namespace LeaveManegementApi.Repository
             _configuration = configuration;
         }
 
-        public async Task<string> ForgotPassword(string email)
+        public async Task<ResponceModel> ForgotPassword(string email)
         {
             var user = await _leaveManagementDBContext.Users.FirstOrDefaultAsync(x => x.Email == email);
-            if (user == null) return "User Not Found";
+            if (user == null) return new ResponceModel(false,"User Not Found",null);
             user.PasswordResetToken = CreateHash.CreateRandomToken();
             user.ResetTokenExpiriesAt = DateTime.Now.AddDays(1);
             await _leaveManagementDBContext.SaveChangesAsync();
             var isEmailSent = await _email.ForgotPasswordEmail(user);
             if (!isEmailSent)
             {
-                return "Something went wrong , please try after some time";
+                return new ResponceModel(false, "Something went wrong , please try after some time",null);
             }
-            return "Please Check Your Email to Reset Password";
+            return new ResponceModel(true, "Please Check Your Email to Reset Password",null);
         }
 
         public async Task<List<LoginDto>> GetAllUsers()

@@ -74,10 +74,10 @@ namespace LeaveManegementApi.Controllers
         public async Task<IActionResult> ForgotPassword([FromQuery][EmailAddress] string email)
         {
             var result = await _account.ForgotPassword(email);
-            if (result.Contains("Found"))
+            if (result.ResponceMessage.Contains("Found"))
             {
                 return NotFound(result);
-            }else if(result.Contains("Something"))
+            }else if(result.ResponceMessage.Contains("Something"))
             {
                 return BadRequest(result);
             }
