@@ -1,4 +1,6 @@
-﻿namespace LeaveManegementApi.Models.Movies
+﻿using System.Text.Json.Serialization;
+
+namespace LeaveManegementApi.Models.Movies
 {
     public class Actor
     {
@@ -7,5 +9,8 @@
         public DateTime DateOfBirth { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
+        public List<ActorMovie> actorMovies { get; set; }
+
+
     }
 }

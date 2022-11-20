@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public List<Actor> Actors { get; set; } 
+        public List<ActorMovie> ActorMovies { get; set; } 
         public string Description { get; set; } = string.Empty;
         public Producer Producer { get; set; }
         public string ImageUrl { get; set; }

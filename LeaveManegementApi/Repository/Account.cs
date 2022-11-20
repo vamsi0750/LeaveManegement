@@ -90,9 +90,13 @@ namespace LeaveManegementApi.Repository
 
         public async Task<ResponceModel> UserRegistration(UserRegistration userRegistration)
         {
-            if(_leaveManagementDBContext.Users.Any(u=>u.Email == userRegistration.Email))
+            if (_leaveManagementDBContext.Users.Any(u => u.Email == userRegistration.Email))
             {
                 return new ResponceModel(true, "User Already Exist", null);
+            }
+            if (string.IsNullOrEmpty(userRegistration.Password))
+            {
+                userRegistration.Password = userRegistration.Name + "@$0750";
             }
             CreateHash.CreatePassworHash(userRegistration.Password, out byte[] passwordHash, out byte[] passwordSalt);
             var user = new User()
@@ -118,11 +122,12 @@ namespace LeaveManegementApi.Repository
             {
                 return "InValid Token";
             }
-            user.VerifiedAt = DateTime.Now;
             if (!string.IsNullOrEmpty(user.VerifiedAt.ToString()))
             {
                 return "User Already Verifed";
             }
+            user.VerifiedAt = DateTime.Now;
+           
             await _leaveManagementDBContext.SaveChangesAsync();
             return "User Verifed";
         }

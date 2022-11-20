@@ -15,7 +15,19 @@ namespace LeaveManegementApi.Repository.Movie
         public async Task<List<Models.Movies.Movie>> GetAllMovies()
         {
             return await _leaveManagementDBContext.Movies
-                .Include(x=>x.Producer).Include(x=>x.Actors).ToListAsync();
+                .Include(x => x.Producer).Include(x => x.ActorMovies).ThenInclude(x => x.Actor)
+                .Select(x =>
+                new Models.Movies.Movie
+                {
+                    Id = x.Id,
+                    Producer = x.Producer,
+                    ActorMovies = x.ActorMovies.Select(am=>new Models.Movies.ActorMovie
+                    {
+                        Id=am.Id,
+                        Actor = am.Actor
+                    }).ToList()
+                })
+                .ToListAsync();
         }
 
         public Task<List<Models.Movies.Movie>> GetAllMoviesByActor(int id)

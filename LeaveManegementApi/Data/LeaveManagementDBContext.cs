@@ -16,6 +16,8 @@ namespace LeaveManegementApi.Data
         public DbSet<Actor> Actors { get; set; }
         public DbSet<Producer> producers { get; set; }
         public DbSet<Movie> Movies  { get; set; }
+        public DbSet<ActorMovie> actorMovies { get; set; }
+
 
         //dotnet ef migrations add "migration name"   => to create migration
         //dotnet ef database update                   => to update database
