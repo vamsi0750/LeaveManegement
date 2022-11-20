@@ -13,6 +13,7 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { UpdatePasswordComponent } from './components/update-password/update-password.component';
 import {CheckboxModule} from 'primeng/checkbox'
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
  
 
 
@@ -27,7 +28,8 @@ import {CheckboxModule} from 'primeng/checkbox'
     ButtonModule,
     DialogModule,
     InputTextModule,
-    CheckboxModule
+    CheckboxModule,
+    ConfirmDialogModule
   ],
   declarations: [
     AccordionAnchorDirective,

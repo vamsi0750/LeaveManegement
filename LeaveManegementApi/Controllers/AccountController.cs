@@ -84,11 +84,11 @@ namespace LeaveManegementApi.Controllers
             return Ok(result);
         }
 
-        [HttpPost("reset-password")]
-        public async Task<IActionResult> ResetPassword([FromBody] ResetPassword resetPassword)
+        [HttpPost("update-password")]
+        public async Task<IActionResult> UpdatePassword([FromBody] ResetPassword resetPassword)
         {
             var result = await _account.ResetPassword(resetPassword);
-            if (result.Contains("InValid"))
+            if (result.ResponceMessage.Contains("In valid"))
             {
                 return BadRequest(result);
             }

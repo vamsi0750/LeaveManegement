@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ResponceData } from '../models/responce';
+import { UpdatePassword } from '../models/update-password';
 
 
 @Injectable({
@@ -46,6 +47,10 @@ export class AuthService {
 
   forgotPassword(email:string): Observable<ResponceData>{
     return this.http.get<ResponceData>(this.baseUrl + `/api/Account/forgot-password?email=${email}`)
+  }
+
+  updatePassword(updatePassword : UpdatePassword): Observable<ResponceData>{
+    return this.http.post<ResponceData>(this.baseUrl + `/api/Account/update-password`,updatePassword)
   }
 
 }

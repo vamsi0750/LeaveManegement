@@ -75,17 +75,17 @@ namespace LeaveManegementApi.Repository
             return new ResponceModel(true,"Login Success", new { token= token});
         }
 
-        public async Task<string> ResetPassword(ResetPassword resetPassword)
+        public async Task<ResponceModel> ResetPassword(ResetPassword resetPassword)
         {
             var user = await _leaveManagementDBContext.Users.FirstOrDefaultAsync(x => x.PasswordResetToken == resetPassword.Token);
-            if (user == null || user.ResetTokenExpiriesAt < DateTime.Now) return "InValid Token";
+            if (user == null || user.ResetTokenExpiriesAt < DateTime.Now) return new ResponceModel(false,"In valid token",null);
             CreateHash.CreatePassworHash(resetPassword.Password, out byte[] passwordHash, out byte[] passwordSalt);
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
             user.PasswordResetToken = null;
             user.ResetTokenExpiriesAt = null;
             await _leaveManagementDBContext.SaveChangesAsync();
-            return "Password Successfully Reseted";
+            return new ResponceModel(true,"Password Successfully Reseted",null);
         }
 
         public async Task<ResponceModel> UserRegistration(UserRegistration userRegistration)

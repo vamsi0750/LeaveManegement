@@ -10,6 +10,6 @@ namespace LeaveManegementApi.Repository
         Task<ResponceModel> Login(UserLogin userLogin);
         Task<string> Verify(string token);
         Task<ResponceModel> ForgotPassword(string email);
-        Task<string> ResetPassword(ResetPassword resetPassword);
+        Task<ResponceModel> ResetPassword(ResetPassword resetPassword);
     }
 }
